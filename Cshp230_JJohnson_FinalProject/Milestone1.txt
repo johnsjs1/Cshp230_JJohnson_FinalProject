@@ -1,0 +1,6 @@
+﻿Create a mockup of the web site using static web pages. These are simple pages with text, images, and navigation links. Interactive controls and data connectivity is not required yet. The prototype just define what you how you want your project to look at feel.
+Your project mockup will be shared with other students using GitHub. Students are required download and review the mockup of their assigned peer-review partner (assigned through Canvas) but will be able to see other projects if they want to (since everyone will be post a link to their GitHub depository).
+1.	Create your mockup website.
+2.	Create a GitHub account and upload your mockup project.
+3.	Share the link in the discussion board.
+4.	Review the mockup of your assigned peer partner.

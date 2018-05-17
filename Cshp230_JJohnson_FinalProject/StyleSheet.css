@@ -1,0 +1,47 @@
+﻿ 
+<!-- Jessica Johnson 03 May 2018 -->
+<!-- Cshp DL230 Assignment05 -->
+body {
+}
+
+.footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+    font-size: 75%;
+}
+
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+li.navbar {
+    float: left;
+}
+
+li.navbar a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+    }
+
+        /* Change the link color to #111 (black) on hover */
+li.navbar a:hover {
+            background-color: #111;
+        }
+
+li.navbar a:active {
+    background-color: green;
+} 
