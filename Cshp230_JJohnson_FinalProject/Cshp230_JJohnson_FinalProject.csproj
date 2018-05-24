@@ -88,13 +88,7 @@
     <Content Include="Home.aspx" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FinalProject.Master.cs">
-      <DependentUpon>FinalProject.Master</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="FinalProject.Master.designer.cs">
-      <DependentUpon>FinalProject.Master</DependentUpon>
-    </Compile>
+    <Content Include="App_Code\Class.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>

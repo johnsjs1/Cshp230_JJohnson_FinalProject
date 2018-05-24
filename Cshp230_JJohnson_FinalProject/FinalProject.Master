@@ -1,6 +1,4 @@
-﻿<%-- Jessica Johnson 08 May 2018 --%>
-<%-- Cshp DL230 Assignment06 --%>
-<%@ Master Language="C#" AutoEventWireup="true"  %>
+﻿<%@ Master Language="C#" AutoEventWireup="true"  %>
 <%-- Jessica Johnson 16 May 2018 --%>
 <%-- Cshp DL230 Final Project --%>
 <!DOCTYPE html>
