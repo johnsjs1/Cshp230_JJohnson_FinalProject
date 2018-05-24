@@ -3,6 +3,14 @@
 <!-- Cshp DL230 Assignment05 -->
 body {
 }
+     .header {
+         margin:0;
+         padding:0;
+         overflow:hidden;
+         background-color: mediumpurple;
+         top: 0;
+         width: 100%;
+     }
 
 .footer {
     position: absolute;
