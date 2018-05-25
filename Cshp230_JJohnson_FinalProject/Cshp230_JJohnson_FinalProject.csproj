@@ -66,7 +66,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Code\AdvWebDevProject_Final Code.sql" />
     <Content Include="FinalProject.Master" />
+    <Content Include="Admin.aspx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -82,13 +84,15 @@
     <Content Include="MyClasses.aspx" />
     <Content Include="NewLogin.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="SQLSetup.sql" />
+    <Content Include="App_Code\SQLSetup.sql" />
     <Content Include="StyleSheet.css" />
     <Content Include="Web.config" />
     <Content Include="Home.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Class.cs" />
+    <Content Include="App_Code\Student.cs" />
+    <Content Include="App_Code\LoginRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <PropertyGroup>
