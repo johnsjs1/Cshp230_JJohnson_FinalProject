@@ -2,65 +2,74 @@
 <%-- Cshp DL230 Final Project --%>
 
 <%@ Page Title="" Language="C#" MasterPageFile="~/FinalProject.Master" AutoEventWireup="true" %>
-<%@ import Namespace="System.Configuration" %>
-<%@ import Namespace="System.Web.Configuration" %>
-<%@ import Namespace="System.Data.SqlClient" %>
 
-<asp:Content ID="Content3" ContentPlaceHolderID="head" runat="server">
+<%@ Import Namespace="System.Configuration" %>
+<%@ Import Namespace="System.Web.Configuration" %>
+<%@ Import Namespace="System.Data.SqlClient" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script runat="server">
-        protected void ConnectionData() {
-            //Configuration config = System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration("~/Web.Debug.config");
-            //ConnectionStringSettings connString;
-            //if (config.ConnectionStrings.ConnectionStrings.Count > 0) {
-            //    connString = config.ConnectionStrings.ConnectionStrings["FinalProjectDatabase"];
-            //    if (connString != null) { Response.Write($"FinalProjectDatabase ={connString.ConnectionString}"); }
-            //    else Response.Write("No database string found.");
-
-            ConnectionStringSettingsCollection settings = ConfigurationManager.ConnectionStrings;
-            StringBuilder sb = new StringBuilder();
-            if (settings != null)
+        protected void ConnectionStrings()
+        {
+            Configuration rootWebConfig = WebConfigurationManager.OpenWebConfiguration("~/");
+            if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
             {
-                sb.Append($"{settings.Count} settings found: <br />");
-                foreach (ConnectionStringSettings cs in settings)
+                foreach (ConnectionStringSettings connString in rootWebConfig.ConnectionStrings.ConnectionStrings)
                 {
-                    sb.Append($"{cs.Name}:{cs.ConnectionString} <br />");
+                    if (connString != null)
+                        Response.Write($"{connString.Name}: {connString.ConnectionString}<br />");
                 }
             }
-            else sb.Append("No connection string settings found.");
-            divConnections.InnerHtml = sb.ToString();
+            else Response.Write($"No Connection Strings found in your web.config file.<br />");
         }
-        protected void LoginData()
-        {
-            StringBuilder sb = new StringBuilder();
-            using (SqlConnection connection = new SqlConnection("Data Source=." +
-                "Initial Catalog=AdvWebDevProject;Integrated Security=True;Connect Timeout=30;Encrypt=False;" +
-                "TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"))
-            {
-                using (SqlCommand command = new SqlCommand("Select * from dbo.LoginRequests",connection))
-                {
-                    connection.Open();
-                    var result = command.BeginExecuteReader();
-                    
-                }
-            }
-        }
-
-        protected void PopulateDataClick(object sender, EventArgs e)
-        {
-            ConnectionData();
-        }
-</script>
+    </script>
 </asp:Content>
-<asp:Content ID="Content4" ContentPlaceHolderID="content" runat="server">
+<asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
     <h1>Admin</h1>
     <h2>Connection Strings</h2>
-    <div id="divConnections" runat="server" /><br />
+    <% ConnectionStrings(); %>
+
     <h2>Login Requests</h2>
-    <div id="divLoginTable" runat="server" /><br />
+    <div id="divLoginTable" runat="server" />
+    <asp:SqlDataSource ID="SqlDataSource3" runat="server"
+        ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>"
+        SelectCommand="SELECT * FROM [LoginRequests]"></asp:SqlDataSource>
+    <asp:GridView ID="GridView2" runat="server" AutoGenerateColumns="False" DataKeyNames="LoginId" DataSourceID="SqlDataSource3">
+        <Columns>
+            <asp:BoundField DataField="LoginId" HeaderText="LoginId" InsertVisible="False" ReadOnly="True" SortExpression="LoginId" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+            <asp:BoundField DataField="EmailAddress" HeaderText="EmailAddress" SortExpression="EmailAddress" />
+            <asp:BoundField DataField="LoginName" HeaderText="LoginName" SortExpression="LoginName" />
+            <asp:BoundField DataField="NewOrReactivate" HeaderText="NewOrReactivate" SortExpression="NewOrReactivate" />
+            <asp:BoundField DataField="ReasonForAccess" HeaderText="ReasonForAccess" SortExpression="ReasonForAccess" />
+            <asp:BoundField DataField="DateNeededBy" HeaderText="DateNeededBy" SortExpression="DateNeededBy" />
+        </Columns>
+    </asp:GridView>
+    <br />
     <h2>All Students</h2>
-    <div id="divStudentTable" runat="server" /><br />
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server"
+        ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>"
+        SelectCommand="SELECT * FROM [Students]"></asp:SqlDataSource>
+    <asp:GridView runat="server" AutoGenerateColumns="False" DataKeyNames="StudentId" DataSourceID="SqlDataSource1">
+        <Columns>
+            <asp:BoundField DataField="StudentId" HeaderText="StudentId" ReadOnly="True" SortExpression="StudentId" />
+            <asp:BoundField DataField="StudentName" HeaderText="StudentName" SortExpression="StudentName" />
+            <asp:BoundField DataField="StudentEmail" HeaderText="StudentEmail" SortExpression="StudentEmail" />
+            <asp:BoundField DataField="StudentLogin" HeaderText="StudentLogin" SortExpression="StudentLogin" />
+            <asp:BoundField DataField="StudentPassword" HeaderText="StudentPassword" SortExpression="StudentPassword" />
+        </Columns>
+    </asp:GridView>
+    <br />
     <h2>All Classes</h2>
-    <div id="divClassesTable" runat="server" /><br />
-<asp:Button runat="server" Text="Populate Data" OnClick="PopulateDataClick"/>
+    <asp:SqlDataSource ID="SqlDataSource2" runat="server"
+        ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>"
+        SelectCommand="SELECT * FROM [Classes]"></asp:SqlDataSource>
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ClassId" DataSourceID="SqlDataSource2">
+        <Columns>
+            <asp:BoundField DataField="ClassId" HeaderText="ClassId" ReadOnly="True" SortExpression="ClassId" />
+            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
+            <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" />
+            <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
+        </Columns>
+    </asp:GridView>
 </asp:Content>
- 
