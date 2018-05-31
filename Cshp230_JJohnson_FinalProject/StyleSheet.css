@@ -1,16 +1,67 @@
 ﻿ 
-<!-- Jessica Johnson 03 May 2018 -->
-<!-- Cshp DL230 Assignment05 -->
-body {
+/*<!-- Jessica Johnson 03 May 2018 -->
+<!-- Cshp DL230 Assignment05 -->*/
+html, body {
+    font-family: Verdana,sans-serif;
+    font-size: 15px;
+    line-height: 1.5
 }
-     .header {
-         margin:0;
-         padding:0;
-         overflow:hidden;
-         background-color: mediumpurple;
-         top: 0;
-         width: 100%;
-     }
+
+html {
+    overflow-x: hidden
+}
+
+h1 {
+    font-size: 36px
+}
+
+h2 {
+    font-size: 30px
+}
+
+h3 {
+    font-size: 24px
+}
+
+h4 {
+    font-size: 20px
+}
+
+h5 {
+    font-size: 18px
+}
+
+h6 {
+    font-size: 16px
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Segoe UI",Arial,sans-serif;
+    font-weight: 400;
+    margin: 10px 0
+}
+#login-status-bar {
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+    text-align: right;
+    background-color: slategrey
+}
+
+.header {
+    margin:0;
+    padding:0;
+    overflow:hidden;
+    background-color: mediumpurple;
+    top: 0;
+    width: 100%;
+}
+a {
+    background-color: transparent
+}
+a:active, a:hover {
+    outline-width: 0
+}
 
 .footer {
     position: absolute;
@@ -23,33 +74,49 @@ body {
     font-size: 75%;
 }
 
-ul.navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    position: sticky;
-    top: 0;
+
+.nav-bar {
     width: 100%;
-}
-li.navbar {
-    float: left;
+    overflow: hidden;
+    color: #fff;
+    background-color: #000
 }
 
-li.navbar a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
+.nav-bar .nav-bar-item {
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    display: block;
+    outline: 0
+}
+.nav-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap
+}
+
+    .nav-btn:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
     }
 
-        /* Change the link color to #111 (black) on hover */
-li.navbar a:hover {
-            background-color: #111;
-        }
 
-li.navbar a:active {
-    background-color: green;
-} 
+.nav-bar .nav-button {
+    white-space: normal
+}
+
+.login-status  {
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+    text-align: right;
+    background-color: slategrey
+}

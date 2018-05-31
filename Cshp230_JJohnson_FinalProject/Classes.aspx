@@ -5,21 +5,19 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
-    <p class="Note">If not logged in, show class list only. Hide registration information.</p>
-    <h1>Class Listing</h1>
-    <h2>Classes available for registration</h2>
-    <table style="width:100%;" border="1">
-        <tr><td>Select</td><td>Name</td><td>Date</td><td>Description</td></tr>
-        <tr><td><input id="Checkbox1" type="checkbox" /></td><td>ClassName </td><td>ClassDate</td><td>ClassDescription</td></tr>
-        <tr><td><input id="Checkbox1" type="checkbox" /></td><td>ClassName </td><td>ClassDate</td><td>ClassDescription</td></tr>
-        <tr><td><input id="Checkbox1" type="checkbox" /></td><td>ClassName </td><td>ClassDate</td><td>ClassDescription</td></tr>
-    </table>
-    <input id="Submit1" type="submit" value="Register for Selected Classes" />
-    <h2>Your current classes</h2>
-    <table style="width:100%;" border="1">
-        <tr><td>Name</td><td>Date</td><td>Description</td></tr>
-        <tr><td>ClassName </td><td>ClassDate</td><td>ClassDescription</td></tr>
-        <tr><td>ClassName </td><td>ClassDate</td><td>ClassDescription</td></tr>
-        <tr><td>ClassName </td><td>ClassDate</td><td>ClassDescription</td></tr>
-    </table>
+
+        <h2>Class Listing</h2>
+          <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+              ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>" 
+              SelectCommand="SELECT * FROM [vClasses] ORDER BY [ClassName]">
+          </asp:SqlDataSource>
+    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ClassId" DataSourceID="SqlDataSource1">
+        <Columns>
+            <asp:BoundField DataField="ClassId" HeaderText="ClassId" ReadOnly="True" SortExpression="ClassId" />
+            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
+            <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" />
+            <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
+        </Columns>
+</asp:GridView>
+
 </asp:Content>
