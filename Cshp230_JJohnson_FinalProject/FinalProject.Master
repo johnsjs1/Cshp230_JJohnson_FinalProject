@@ -1,9 +1,27 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true"  %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" %>
+
 <%-- Jessica Johnson 16 May 2018 --%>
 <%-- Cshp DL230 Final Project --%>
 <!DOCTYPE html>
 
 <html>
+    <script runat="server">protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            HttpCookie aCookie = Request.Cookies["Student"];
+            if (aCookie != null)
+            {
+                hdnStudentId.Value = aCookie["Id"];
+                hdnStudentLogin.Value = aCookie["Login"];
+                lblLoginStatus.Text = "Logged in as " + aCookie["Login"] + " (" + aCookie["Id"] + ")";
+            }
+            else
+            {
+                lblLoginStatus.Text = "You are not logged in.";
+            }
+        }
+
+    </script>
 <head runat="server">
     <title></title>
     <link href="StyleSheet.css" rel="stylesheet" />
@@ -12,34 +30,29 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <asp:Table ID="Table1" runat="server" Width="100%">
-            <asp:TableRow runat="server" Height="48px" CssClass="header">
-                <asp:TableCell runat="server" ColumnSpan="2">
-                      <p class="header">[Imaginary University Logo]</p>
-                </asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow runat="server" Height="48px">
-                <asp:TableCell runat="server" ColumnSpan="2">
-                      <ul class="navbar" >
-                      <li class="navbar" ><a href="Home.aspx">Home</a></li>
-                      <li class="navbar" ><a href="Classes.aspx">Classes</a></li>
-                      <li class="navbar"><a href="Login.aspx">Login</a></li>
-                    </ul>
-                </asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow runat="server">
-                <asp:TableCell runat="server" Width="48"></asp:TableCell>
-                <asp:TableCell runat="server">
-                    <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
-                </asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>
+        <div class="nav-bar">[Imaginary University Logo]</div>
+        <div class="nav-bar">
+            <a href="Home.aspx" class="nav-bar-item nav-button">Home</a>
+            <a href="Classes.aspx" class="nav-bar-item nav-button">Classes</a>
+            <a href="MyClasses.aspx" class="nav-bar-item nav-button">My Classes</a>
+            <a href="Register.aspx" class="nav-bar-item nav-button">Register</a>
+            <a href="Admin.aspx" class="nav-bar-item nav-button" >Admin</a>
+            <a href="Login.aspx"class="nav-bar-item nav-button">Login</a>
+        </div>
+        <div id="login-status-bar">
+            <asp:Label ID="lblLoginStatus" runat="server"></asp:Label></div>
+        <asp:HiddenField runat="server" id="hdnStudentLogin"/>
+        <asp:HiddenField runat="server" id="hdnStudentId"/>
+
+        <asp:ContentPlaceHolder ID="content" runat="server"></asp:ContentPlaceHolder>
+        
+
         <div class="footer">
-            Author: Jessica Johnson <br />
+            Author: Jessica Johnson
+            <br />
             Check out my new <a href="https://jessicasfirstblogadventure.blogspot.com/" target="_blank">blog!</a><br />
             Copyright 2018<br />
         </div>
-
     </form>
 </body>
 </html>
