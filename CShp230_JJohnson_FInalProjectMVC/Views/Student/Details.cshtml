@@ -1,5 +1,4 @@
 ﻿@model CShp230_JJohnson_FInalProjectMVC.Models.vStudent
-
 @{
     Layout = null;
 }
@@ -16,39 +15,36 @@
         <h4>vStudent</h4>
         <hr />
         <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.StudentName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.StudentName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.StudentEmail)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.StudentEmail)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.StudentLogin)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.StudentLogin)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.StudentPassword)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.StudentPassword)
-            </dd>
-    
+            <dt>@Html.DisplayNameFor(model => model.StudentName)</dt>
+            <dd>@Html.DisplayFor(model => model.StudentName)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.StudentEmail)</dt>
+            <dd>@Html.DisplayFor(model => model.StudentEmail)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.StudentLogin)</dt>
+            <dd>@Html.DisplayFor(model => model.StudentLogin)</dd>
+
+            <dt>@Html.DisplayNameFor(model => model.StudentPassword)</dt>
+            <dd>@Html.DisplayFor(model => model.StudentPassword)</dd>
         </dl>
+        <h4>Enrolled Classes</h4>
+        <table class="table" border="1">
+            <tr>
+                <th>Class Name</th>
+                <th>Class Date</th>
+                <th>Class Description</th>
+            </tr>
+
+            @{
+            foreach (var theClass in Model.vClasses)
+            {
+                <tr>
+                    <td>@theClass.ClassName</td>
+                    <td>@theClass.ClassDate.ToShortDateString()</td>
+                    <td>@theClass.ClassDescription</td>
+                </tr>
+        }}
+        </table>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.StudentId }) |

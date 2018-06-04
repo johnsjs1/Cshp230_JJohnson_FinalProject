@@ -28,7 +28,6 @@ namespace CShp230_JJohnson_FInalProjectMVC.Models
         }
     
         public virtual DbSet<vClass> vClasses { get; set; }
-        public virtual DbSet<vClassStudent> vClassStudents { get; set; }
         public virtual DbSet<vLoginRequest> vLoginRequests { get; set; }
         public virtual DbSet<vStudent> vStudents { get; set; }
     

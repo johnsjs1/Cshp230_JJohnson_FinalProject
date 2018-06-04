@@ -10,14 +10,15 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vClasses' does not have a pri
         <EntityType Name="vClasses">
           <Key>
             <PropertyRef Name="ClassId" />
-            </Key>
+            
+            
+            
+          </Key>
           <Property Name="ClassId" Type="int" Nullable="false" />
           <Property Name="ClassName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="ClassDate" Type="datetime" Nullable="false" />
           <Property Name="ClassDescription" Type="nvarchar" MaxLength="2000" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'AdvWebDevProject.dbo.vClassesByStudents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'AdvWebDevProject.dbo.vClassStudents' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="vClassStudents">
@@ -33,6 +34,11 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vLoginRequests' does not have
         <EntityType Name="vLoginRequests">
           <Key>
             <PropertyRef Name="LoginId" />
+            
+            
+            
+            
+            
           </Key>
           <Property Name="LoginId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -47,7 +53,9 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
         <EntityType Name="vStudents">
           <Key>
             <PropertyRef Name="StudentId" />
-            </Key>
+            
+            
+          </Key>
           <Property Name="StudentId" Type="int" Nullable="false" />
           <Property Name="StudentName" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="StudentEmail" Type="nvarchar" MaxLength="100" Nullable="false" />
@@ -165,7 +173,7 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
     [vStudents].[StudentPassword] AS [StudentPassword]
     FROM [dbo].[vStudents] AS [vStudents]</DefiningQuery>
           </EntitySet>
-          </EntityContainer>
+        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -248,10 +256,9 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
             <Parameter Name="StudentPassword" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="vClasses" EntityType="AdvWebDevProjectModel.vClass" />
-          <EntitySet Name="vClassStudents" EntityType="AdvWebDevProjectModel.vClassStudent" />
           <EntitySet Name="vLoginRequests" EntityType="AdvWebDevProjectModel.vLoginRequest" />
           <EntitySet Name="vStudents" EntityType="AdvWebDevProjectModel.vStudent" />
-          <AssociationSet Name="AssocClassStudent" Association="AdvWebDevProjectModel.AssocClassStudent">
+          <AssociationSet Name="vClassvStudent" Association="AdvWebDevProjectModel.vClassvStudent">
             <End Role="vClass" EntitySet="vClasses" />
             <End Role="vStudent" EntitySet="vStudents" />
           </AssociationSet>
@@ -282,17 +289,7 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
           <Property Name="ClassName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ClassDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ClassDescription" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
-          <Property Name="vClassStudentClassId" Type="Int32" Nullable="false" />
-          <Property Name="vClassStudentStudentId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="vStudents" Relationship="AdvWebDevProjectModel.AssocClassStudent" FromRole="vClass" ToRole="vStudent" />
-        </EntityType>
-        <EntityType Name="vClassStudent">
-          <Key>
-            <PropertyRef Name="ClassId" />
-            <PropertyRef Name="StudentId" />
-          </Key>
-          <Property Name="ClassId" Type="Int32" Nullable="false" />
-          <Property Name="StudentId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="vStudents" Relationship="AdvWebDevProjectModel.vClassvStudent" FromRole="vClass" ToRole="vStudent" />
         </EntityType>
         <EntityType Name="vLoginRequest">
           <Key>
@@ -315,9 +312,9 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
           <Property Name="StudentEmail" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="StudentLogin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StudentPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="vClasses" Relationship="AdvWebDevProjectModel.AssocClassStudent" FromRole="vStudent" ToRole="vClass" />
+          <NavigationProperty Name="vClasses" Relationship="AdvWebDevProjectModel.vClassvStudent" FromRole="vStudent" ToRole="vClass" />
         </EntityType>
-        <Association Name="AssocClassStudent">
+        <Association Name="vClassvStudent">
           <End Type="AdvWebDevProjectModel.vClass" Role="vClass" Multiplicity="*" />
           <End Type="AdvWebDevProjectModel.vStudent" Role="vStudent" Multiplicity="*" />
         </Association>
@@ -366,32 +363,6 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
           <FunctionImportMapping FunctionImportName="pUpdClassStudents" FunctionName="AdvWebDevProjectModel.Store.pUpdClassStudents" />
           <FunctionImportMapping FunctionImportName="pUpdLoginRequests" FunctionName="AdvWebDevProjectModel.Store.pUpdLoginRequests" />
           <FunctionImportMapping FunctionImportName="pUpdStudents" FunctionName="AdvWebDevProjectModel.Store.pUpdStudents" />
-          <EntitySetMapping Name="vClassStudents">
-            <EntityTypeMapping TypeName="AdvWebDevProjectModel.vClassStudent">
-              <MappingFragment StoreEntitySet="vClassStudents">
-                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
-                <ScalarProperty Name="ClassId" ColumnName="ClassId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-            <EntityTypeMapping TypeName="AdvWebDevProjectModel.vClassStudent">
-              <ModificationFunctionMapping>
-                <InsertFunction FunctionName="AdvWebDevProjectModel.Store.pInsClassStudents">
-                  <ScalarProperty Name="StudentId" ParameterName="StudentId" />
-                  <ScalarProperty Name="ClassId" ParameterName="ClassId" />
-                </InsertFunction>
-                <DeleteFunction FunctionName="AdvWebDevProjectModel.Store.pDelClassStudents">
-                  <ScalarProperty Name="StudentId" ParameterName="StudentId" />
-                  <ScalarProperty Name="ClassId" ParameterName="ClassId" />
-                </DeleteFunction>
-                <UpdateFunction FunctionName="AdvWebDevProjectModel.Store.pUpdClassStudents" >
-                  <ScalarProperty Name="StudentId" ParameterName="OriginalStudentId" Version="Original" />
-                  <ScalarProperty Name="ClassId" ParameterName="OriginalClassId" Version="Original" />
-                  <ScalarProperty Name="StudentId" ParameterName="NewStudentId" Version="Current" />
-                  <ScalarProperty Name="ClassId" ParameterName="NewClassId" Version="Current" />
-                </UpdateFunction>
-              </ModificationFunctionMapping>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vLoginRequests">
             <EntityTypeMapping TypeName="AdvWebDevProjectModel.vLoginRequest">
               <MappingFragment StoreEntitySet="vLoginRequests">
@@ -491,7 +462,7 @@ warning 6002: The table/view 'AdvWebDevProject.dbo.vStudents' does not have a pr
               </ModificationFunctionMapping>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="AssocClassStudent" TypeName="AdvWebDevProjectModel.AssocClassStudent" StoreEntitySet="vClassStudents">
+          <AssociationSetMapping Name="vClassvStudent" TypeName="AdvWebDevProjectModel.vClassvStudent" StoreEntitySet="vClassStudents">
             <EndProperty Name="vStudent">
               <ScalarProperty Name="StudentId" ColumnName="StudentId" />
             </EndProperty>
