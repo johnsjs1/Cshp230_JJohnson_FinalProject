@@ -85,10 +85,10 @@
         DataKeyNames="ClassId" DataSourceID="SqlDataSource1">
         <Columns>
             <asp:CommandField ShowSelectButton="True" ButtonType="Button"></asp:CommandField>
-            <asp:BoundField DataField="ClassId" HeaderText="ClassId" ReadOnly="True" SortExpression="ClassId" />
-            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
-            <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" />
-            <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
+            <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="ClassId" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="ClassName" />
+            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="ClassDate" />
+            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="ClassDescription" />
         </Columns>
         <selectedrowstyle backcolor="LightCyan"
          forecolor="DarkBlue"
@@ -111,10 +111,10 @@
         DataSourceID="SqlDataSource2" DataKeyNames="ClassId">
         <Columns>
             <asp:CommandField ShowSelectButton="True" ButtonType="Button"></asp:CommandField>
-            <asp:BoundField DataField="ClassId" HeaderText="ClassId" SortExpression="ClassId" />
-            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
-            <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" />
-            <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
+            <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="ClassId" />
+            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="ClassName" />
+            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="ClassDate" />
+            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="ClassDescription" />
         </Columns>
         <selectedrowstyle backcolor="LightCyan"
          forecolor="DarkBlue"

@@ -26,10 +26,10 @@
     </asp:SqlDataSource>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
         <Columns>
-            <asp:BoundField DataField="ClassId" HeaderText="ClassId" SortExpression="ClassId" />
-            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
-            <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" />
-            <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
+            <asp:BoundField DataField="ClassId" HeaderText="Id" SortExpression="ClassId" />
+            <asp:BoundField DataField="ClassName" HeaderText="Name" SortExpression="ClassName" />
+            <asp:BoundField DataField="ClassDate" HeaderText="Date" SortExpression="ClassDate" />
+            <asp:BoundField DataField="ClassDescription" HeaderText="Description" SortExpression="ClassDescription" />
         </Columns>
     </asp:GridView>
 </asp:Content>
