@@ -6,8 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="30914f2cf94b43d59157d1820d282382" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="AdvWebDevProjectModel.vClass" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="AdvWebDevProjectModel.vLoginRequest" Width="1.5" PointX="7.375" PointY="0.5" />
-        <EntityTypeShape EntityType="AdvWebDevProjectModel.vStudent" Width="1.5" PointX="5.125" PointY="0.5" />
+        <EntityTypeShape EntityType="AdvWebDevProjectModel.vLoginRequest" Width="1.5" PointX="4.75" PointY="0.5" />
+        <EntityTypeShape EntityType="AdvWebDevProjectModel.vStudent" Width="1.5" PointX="2.625" PointY="0.5" IsExpanded="true" />
         <AssociationConnector Association="AdvWebDevProjectModel.vClassvStudent" />
       </Diagram>
     </edmx:Diagrams>

@@ -864,7 +864,7 @@ Select * From vStudents;
 -- Set Permissions -- 
 If Not Exists (Select Name From Master..Syslogins Where Name = 'CSharp')
  Begin 
-   Exec sp_addlogin @loginame =  'CSharp' , @passwd = 'sql' 
+   Exec sp_addlogin @loginame =  'CSharp' , @passwd = 'sql!2345' 
  End
 If Not Exists (Select Name From AdvWebDevProject..SysUsers Where Name = 'CSharp')
  Begin

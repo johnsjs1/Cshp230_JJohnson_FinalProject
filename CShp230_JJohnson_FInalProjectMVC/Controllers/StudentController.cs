@@ -10,17 +10,17 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
 {
     public class StudentController : Controller
     {
-        AdvWebDevProjectEntities db = new AdvWebDevProjectEntities();
-
         // GET: Student
         public ActionResult Index()
         {
+            var db = new AdvWebDevProjectEntities();
             return View(db.vStudents.ToList());
         }
 
         // GET: Student/Details/5
         public ActionResult Details(int id)
         {
+            var db = new AdvWebDevProjectEntities();
             var theStudent = db.vStudents.Find(id);
             if (theStudent == null) return HttpNotFound();
             return View(theStudent);
@@ -29,8 +29,7 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
         // GET: Student/Create
         public ActionResult Create()
         {
-            vStudent theStudent = new vStudent();
-            return View(theStudent);
+            return View(new vStudent());
         }
 
         // POST: Student/Create
@@ -38,18 +37,22 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(vStudent theStudent)
         {
-            try
+            using (var db = new AdvWebDevProjectEntities())
             {
-                if (ModelState.IsValid)
+                try
                 {
-                    db.vStudents.Add(theStudent);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    if (ModelState.IsValid)
+                    {
+                        db.vStudents.Add(theStudent);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                ModelState.AddModelError("", "Unable to save changes. Try again, and if the problem persists see your system administrator.");
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("",
+                        $"An error occurred: {ex.Message}");
+                }
             }
             return View(theStudent);
         }
@@ -57,6 +60,7 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
         // GET: Student/Edit/5
         public ActionResult Edit(int id)
         {
+            var db = new AdvWebDevProjectEntities();
             vStudent theStudent = db.vStudents.Find(id);
             if (theStudent == null) return HttpNotFound();
             return View(theStudent);
@@ -67,19 +71,22 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(vStudent theStudent)
         {
-            if (ModelState.IsValid) //verifies that the data submitted in the form can be used to modify (edit or update)
+            using (var db = new AdvWebDevProjectEntities())
             {
-                if (TryUpdateModel(theStudent))
-                    try
-                    {
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-                    catch
-                    {
-                        ModelState.AddModelError("", 
-                            "Unable to save changes. Try again, and if the problem persists see your system administrator.");
-                    }
+                if (ModelState.IsValid) //verifies that the data submitted in the form can be used to modify (edit or update)
+                {
+                    if (TryUpdateModel(theStudent))
+                        try
+                        {
+                            db.SaveChanges();
+                            return RedirectToAction("Index");
+                        }
+                        catch (Exception ex)
+                        {
+                            ModelState.AddModelError("",
+                                $"An error occurred: {ex.Message}");
+                        }
+                }
             }
                 return View(theStudent);
         }
@@ -87,6 +94,7 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
         // GET: Student/Delete/5
         public ActionResult Delete(int id)
         {
+            var db = new AdvWebDevProjectEntities();
             vStudent theStudent = db.vStudents.Find(id);
             if (theStudent == null) return HttpNotFound();
             return View(theStudent);
@@ -97,22 +105,24 @@ namespace CShp230_JJohnson_FInalProjectMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(vStudent theStudent)
         {
-            if (ModelState.IsValid)
+            using (var db = new AdvWebDevProjectEntities())
             {
-                try
+                if (ModelState.IsValid)
                 {
-                    db.vStudents.Remove(theStudent);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    try
+                    {
+                        db.Entry(theStudent).State = System.Data.Entity.EntityState.Deleted;
+                        db.vStudents.Remove(theStudent);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                    catch (Exception ex)
+                    {
+                        ModelState.AddModelError("",
+                            $"An error occurred: {ex.Message}");
+                    }
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    ModelState.AddModelError("",
-                        $"Item with id {theStudent.StudentId} no longer exists in the database.");
-                }
-                catch
-                { ModelState.AddModelError("",
-                    "Unable to save changes. Try again, and if the problem persists see your system administrator."); }
+                else ModelState.AddModelError("", "Model state was invalid.");
             }
             return View(theStudent);
         }
