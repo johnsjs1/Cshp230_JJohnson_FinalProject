@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CShp230_JJohnson_FInalProjectMVC.Models.vClass>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClassDescription)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ClassDescription)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.ClassId }) |
+                @Html.ActionLink("Details", "Details", new { id=item.ClassId }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ClassId })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>

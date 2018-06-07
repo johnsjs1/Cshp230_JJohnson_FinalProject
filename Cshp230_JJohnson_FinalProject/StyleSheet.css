@@ -1,55 +1,132 @@
 ﻿ 
-<!-- Jessica Johnson 03 May 2018 -->
-<!-- Cshp DL230 Assignment05 -->
-body {
-}
-     .header {
-         margin:0;
-         padding:0;
-         overflow:hidden;
-         background-color: mediumpurple;
-         top: 0;
-         width: 100%;
-     }
+/*<!-- Jessica Johnson 03 May 2018 -->
+<!-- Cshp DL230 Assignment05 -->*/
 
-.footer {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    padding: 1rem;
-    background-color: #efefef;
-    text-align: center;
-    font-size: 75%;
-}
+html, body {    font-family: Verdana,sans-serif;}
+boxy {margin-left: 5px;}
 
-ul.navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+html {    overflow-x: hidden}
+h1 {    font-size: 36px}
+h2 {    font-size: 30px}
+h3 {    font-size: 24px}
+h4 {    font-size: 20px}
+h5 {    font-size: 18px}
+h6 {    font-size: 16px}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Segoe UI",Arial,sans-serif;
+    font-weight: 400;
+    margin: 10px 0
+}
+#login-status-bar {
+    width: 100%;
     overflow: hidden;
-    background-color: #333;
-    position: sticky;
+    color: #fff;
+    text-align: right;
+    background-color: slategrey
+}
+a {
+    background-color: transparent
+}
+a:active, a:hover {
+    outline-width: 0
+}
+
+.header {
+    overflow: hidden;
+    background-color: #142342;
+    color: white;
     top: 0;
     width: 100%;
+    padding: 0;
+
 }
-li.navbar {
-    float: left;
+    .header td {
+        border-width: 0;
+    }
+.headerContents {
+    font-family: "Tangerine", serif;
+    font-size: 64px;
+    font-weight: bold;    
+    padding: 0;
+    vertical-align:middle;
 }
 
-li.navbar a {
-        display: block;
-        color: white;
-        text-align: center;
-        padding: 14px 16px;
-        text-decoration: none;
+.footer {
+    padding-top: 10px;
+    text-align: center;
+    overflow: hidden;
+    background-color:#142342;
+    color: white;
+    bottom:0;
+    position:fixed;
+    width: 100%;
+    z-index:1;
+    font-size: 75%;
+
+}
+
+
+.nav-bar {
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+    background-color: #000
+}
+
+.nav-bar .nav-bar-item {
+    padding: 8px 16px;
+    float: left;
+    width: auto;
+    border: none;
+    display: block;
+    outline: 0
+}
+.nav-button {
+    border: none;
+    display: inline-block;
+    padding: 8px 16px;
+    vertical-align: middle;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    background-color: inherit;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap
+}
+
+    .nav-btn:hover {
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
     }
 
-        /* Change the link color to #111 (black) on hover */
-li.navbar a:hover {
-            background-color: #111;
-        }
 
-li.navbar a:active {
-    background-color: green;
-} 
+.nav-bar .nav-button {
+    white-space: normal
+}
+
+.login-status  {
+    width: 100%;
+    overflow: hidden;
+    color: #fff;
+    text-align: right;
+    background-color: slategrey
+}
+
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+td, th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: slategray;
+    color: white;
+}
+

@@ -1,0 +1,55 @@
+﻿@model CShp230_JJohnson_FInalProjectMVC.Models.vClass
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>Class Details</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClassId, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayTextFor(Model => Model.ClassId)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClassName, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayTextFor(Model => Model.ClassName)
+
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClassDate, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayTextFor(Model => Model.ClassDate)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ClassDescription, new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DisplayTextFor(Model => Model.ClassDescription)
+                </div>
+            </div>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+    
+</body>
+</html>
