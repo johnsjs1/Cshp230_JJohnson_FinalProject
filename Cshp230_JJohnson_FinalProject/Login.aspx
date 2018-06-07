@@ -21,8 +21,13 @@
                     cmd.Parameters.Add("@StudentId", SqlDbType.SmallInt);
                     cmd.Parameters["@StudentId"].Direction = ParameterDirection.Output;
                     con.Open();
-                    cmd.ExecuteNonQuery();
-                    result= cmd.Parameters["@StudentId"].Value.ToString();
+                    try {
+                        cmd.ExecuteNonQuery();
+                        result= cmd.Parameters["@StudentId"].Value.ToString();
+                    } catch
+                    {
+                        result = null;
+                    }
                 }
             }
             if (!string.IsNullOrEmpty(result))

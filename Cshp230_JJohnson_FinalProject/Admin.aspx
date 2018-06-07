@@ -14,61 +14,31 @@
             Configuration rootWebConfig = WebConfigurationManager.OpenWebConfiguration("~/");
             if (rootWebConfig.ConnectionStrings.ConnectionStrings.Count > 0)
             {
+                Response.Write("<table>");
+                Response.Write("<tr><th>Name</th><th>Connection String</th></tr>");
                 foreach (ConnectionStringSettings connString in rootWebConfig.ConnectionStrings.ConnectionStrings)
                 {
                     if (connString != null)
-                        Response.Write($"{connString.Name}: {connString.ConnectionString}<br />");
+                        Response.Write($"<tr><td><strong>{connString.Name}:</strong></td> <td>{connString.ConnectionString}</td></tr>");
                 }
+                Response.Write("</table>");
             }
             else Response.Write($"No Connection Strings found in your web.config file.<br />");
         }
-  protected void gridLoginRequests_RowCommand(Object sender, GridViewCommandEventArgs e)
-  {
-    // If multiple buttons are used in a GridView control, use the
-    // CommandName property to determine which button was clicked.
-    if(e.CommandName=="Delete")
-    {
-      // Convert the row index stored in the CommandArgument
-      // property to an Integer.
-      int index = Convert.ToInt32(e.CommandArgument);
 
-                GridViewRow row = gridLoginRequests.Rows[index];
-                int requestId = row.DataItemIndex;
-                var ConnectionString = ConfigurationManager.ConnectionStrings["AdvWebDevProjectConnectionString"].ConnectionString;
-            int result = 0;
-            
-            using (SqlConnection con = new SqlConnection(ConnectionString))
-            {
-                using (SqlCommand cmd = new SqlCommand("pDelLoginRequests", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@LoginId", requestId);
-                    con.Open();
-                    try
-                    {
-                        result = cmd.ExecuteNonQuery();
-                    }
-                    catch (Exception ex)
-                    {
-
-                    }
-                }
-            }
-
-
-    }
-  }    
 </script>
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
+    <h2>Connection Strings</h2>
+    <%ConnectionStrings(); %>
     <h2>Login Requests</h2>
     <div id="divLoginTable" runat="server" />
     <asp:SqlDataSource ID="SqlDataSource3" runat="server"
         ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>"
-        SelectCommand="SELECT * FROM [LoginRequests]"></asp:SqlDataSource>
+        SelectCommand="SELECT * FROM [vLoginRequests]"></asp:SqlDataSource>
     <asp:GridView ID="gridLoginRequests" runat="server" AutoGenerateColumns="False" 
-        DataKeyNames="LoginId" DataSourceID="SqlDataSource3" onrowcommand="gridLoginRequests_RowCommand">
+        DataKeyNames="LoginId" DataSourceID="SqlDataSource3" >
         <Columns>
             <asp:BoundField DataField="LoginId" HeaderText="LoginId" InsertVisible="False" ReadOnly="True" SortExpression="LoginId" />
             <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
@@ -77,7 +47,6 @@
             <asp:BoundField DataField="NewOrReactivate" HeaderText="NewOrReactivate" SortExpression="NewOrReactivate" />
             <asp:BoundField DataField="ReasonForAccess" HeaderText="ReasonForAccess" SortExpression="ReasonForAccess" />
             <asp:BoundField DataField="DateRequiredBy" HeaderText="DateRequiredBy" SortExpression="DateRequiredBy" DataFormatString="{0:dd-MM-yyyy}" />
-            <asp:ButtonField ButtonType="Button" CommandName="Delete" Text="Delete" />
         </Columns>
     </asp:GridView>
     <br />
@@ -85,7 +54,7 @@
     <h2>All Students</h2>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server"
         ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>"
-        SelectCommand="SELECT * FROM [Students]"></asp:SqlDataSource>
+        SelectCommand="SELECT * FROM [vStudents]"></asp:SqlDataSource>
     <asp:GridView runat="server" AutoGenerateColumns="False" DataKeyNames="StudentId" DataSourceID="SqlDataSource1">
         <Columns>
             <asp:BoundField DataField="StudentId" HeaderText="StudentId" ReadOnly="True" SortExpression="StudentId" />
@@ -99,13 +68,27 @@
     <h2>All Classes</h2>
     <asp:SqlDataSource ID="SqlDataSource2" runat="server"
         ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>"
-        SelectCommand="SELECT * FROM [Classes]"></asp:SqlDataSource>
+        SelectCommand="SELECT * FROM [vClasses]"></asp:SqlDataSource>
     <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataKeyNames="ClassId" DataSourceID="SqlDataSource2">
         <Columns>
             <asp:BoundField DataField="ClassId" HeaderText="ClassId" ReadOnly="True" SortExpression="ClassId" />
             <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
             <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" DataFormatString="{0:dd-MM-yyyy}" />
             <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
+        </Columns>
+    </asp:GridView>
+        <h2>All Enrollments</h2>
+    <asp:SqlDataSource ID="ClassesByStudent" runat="server" 
+        ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>" 
+         SelectCommand="SELECT [ClassId],[ClassName],[StudentId],[StudentName] FROM [vClassesByStudents]" ProviderName="System.Data.SqlClient">
+    </asp:SqlDataSource>
+    <asp:GridView ID="gridClasses" runat="server" AutoGenerateColumns="False" 
+        DataSourceID="ClassesByStudent" DataKeyNames="ClassId">
+        <Columns>
+            <asp:BoundField DataField="ClassId" HeaderText="ClassId" SortExpression="ClassId" ReadOnly="True" />
+            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
+            <asp:BoundField DataField="StudentId" HeaderText="StudentId" ReadOnly="True" SortExpression="StudentId" />
+            <asp:BoundField DataField="StudentName" HeaderText="StudentName" SortExpression="StudentName" />
         </Columns>
     </asp:GridView>
 </div>

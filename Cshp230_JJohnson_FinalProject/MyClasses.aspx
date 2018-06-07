@@ -17,19 +17,22 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
     <h1>My Classes</h1>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
+    <asp:SqlDataSource ID="ClassesByStudent" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>" 
-        SelectCommand="pSelClassesByStudentID" SelectCommandType="StoredProcedure">
+         SelectCommand="SELECT [ClassId], [ClassName], [ClassDate], [ClassDescription] 
+        FROM [vClassesByStudents] WHERE ([StudentId] = @StudentId)" ProviderName="System.Data.SqlClient">
         <SelectParameters>
-            <asp:ControlParameter Name="StudentId" ControlID="hdnStudentId" PropertyName="Value" />
+            <asp:ControlParameter ControlID="hdnStudentId" 
+                Name="StudentId" PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
-    <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" DataSourceID="SqlDataSource1">
+    <asp:GridView ID="gridClasses" runat="server" AutoGenerateColumns="False" 
+        DataSourceID="ClassesByStudent" DataKeyNames="ClassId">
         <Columns>
-            <asp:BoundField DataField="ClassId" HeaderText="Id" SortExpression="ClassId" />
-            <asp:BoundField DataField="ClassName" HeaderText="Name" SortExpression="ClassName" />
-            <asp:BoundField DataField="ClassDate" HeaderText="Date" SortExpression="ClassDate" />
-            <asp:BoundField DataField="ClassDescription" HeaderText="Description" SortExpression="ClassDescription" />
+            <asp:BoundField DataField="ClassId" HeaderText="ClassId" SortExpression="ClassId" ReadOnly="True" />
+            <asp:BoundField DataField="ClassName" HeaderText="ClassName" SortExpression="ClassName" />
+            <asp:BoundField DataField="ClassDate" HeaderText="ClassDate" SortExpression="ClassDate" />
+            <asp:BoundField DataField="ClassDescription" HeaderText="ClassDescription" SortExpression="ClassDescription" />
         </Columns>
     </asp:GridView>
 </asp:Content>

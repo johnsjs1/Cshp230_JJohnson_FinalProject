@@ -13,7 +13,8 @@
             {
                 hdnStudentId.Value = aCookie["Id"];
                 hdnStudentLogin.Value = aCookie["Login"];
-                lblLoginStatus.Text = "Logged in as " + aCookie["Login"] + " (" + aCookie["Id"] + ")";
+                lblLoginStatus.Text = "Logged in as " + aCookie["Login"] + " (" + aCookie["Id"] + 
+                    ") <a href='Logout.aspx'>(Logout)</a>";
             }
             else
             {
@@ -33,7 +34,7 @@
     <form id="form1" runat="server">
         <table class="header">
             <tr><td style="width:125px"><img src="Unseen_Univ.png" width="100" height="100" /></td>
-                <td class="headerContents">Unseen University</td></tr>
+                <td class="headerContents" >Unseen University</td></tr>
         </table>
 
         <div class="nav-bar">

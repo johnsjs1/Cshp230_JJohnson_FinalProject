@@ -22,8 +22,10 @@
             var ConnectionString = ConfigurationManager.ConnectionStrings["AdvWebDevProjectConnectionString"].ConnectionString;
             int result = 0;
             int studentId = Convert.ToInt32(((HiddenField)Master.FindControl("hdnStudentId")).Value);
-            int classId = Convert.ToInt32(gridAvailableClasses.SelectedDataKey.Value);
-
+            int classId = -1;
+            try { classId = Convert.ToInt32(gridAvailableClasses.SelectedDataKey.Value); }
+            catch { lblResult.Text = "No class selected!";
+                return; }
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pInsClassStudents", con))
@@ -38,9 +40,9 @@
                     }
                     catch (Exception ex)
                     {
-                        lblRegisterResult.Text = "Error: " + ex.Message;
+                        lblResult.Text = "Error: " + ex.Message;
                     }
-                    if (result == 1) lblRegisterResult.Text = "Registration successful!";
+                    if (result == 1) lblResult.Text = "Registration successful!";
                     gridMyClasses.DataBind();
                 }
             }
@@ -51,7 +53,10 @@
             var ConnectionString = ConfigurationManager.ConnectionStrings["AdvWebDevProjectConnectionString"].ConnectionString;
             int result = 0;
             int studentId = Convert.ToInt32(((HiddenField)Master.FindControl("hdnStudentId")).Value);
-            int classId = Convert.ToInt32(gridMyClasses.SelectedDataKey.Value);
+            int classId = -1;
+            try { classId = Convert.ToInt32(gridMyClasses.SelectedDataKey.Value); }
+            catch { lblResult.Text = "No class selected!";return; }
+
             using (SqlConnection con = new SqlConnection(ConnectionString))
             {
                 using (SqlCommand cmd = new SqlCommand("pDelClassStudents", con))
@@ -66,17 +71,19 @@
                     }
                     catch (Exception ex)
                     {
-                        lblDropResult.Text = "Error: " + ex.Message;
+                        lblResult.Text = "Error: " + ex.Message;
                     }
-                    if (result == 1) lblDropResult.Text = "Drop successful!";
+                    if (result == 1) lblResult.Text = "Drop successful!";
                     gridMyClasses.DataBind();
                 }
             }
+
         }
 </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="content" runat="server">
     <h1>Class Listing</h1>
+    <asp:Label ID="lblResult" runat="server" ForeColor="#FF9900" Font-Bold="true"></asp:Label>
     <h2>Classes available for registration</h2>
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>" 
@@ -85,10 +92,10 @@
         DataKeyNames="ClassId" DataSourceID="SqlDataSource1">
         <Columns>
             <asp:CommandField ShowSelectButton="True" ButtonType="Button"></asp:CommandField>
-            <asp:BoundField DataField="Id" HeaderText="Id" ReadOnly="True" SortExpression="ClassId" />
-            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="ClassName" />
-            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="ClassDate" />
-            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="ClassDescription" />
+            <asp:BoundField DataField="ClassId" HeaderText="Id" ReadOnly="True" SortExpression="ClassId" />
+            <asp:BoundField DataField="ClassName" HeaderText="Name" SortExpression="ClassName" />
+            <asp:BoundField DataField="ClassDate" HeaderText="Date" SortExpression="ClassDate" DataFormatString="{0:dd-MM-yyyy}" />
+            <asp:BoundField DataField="ClassDescription" HeaderText="Description" SortExpression="ClassDescription" />
         </Columns>
         <selectedrowstyle backcolor="LightCyan"
          forecolor="DarkBlue"
@@ -98,30 +105,30 @@
 <br />
 <asp:Button ID="btnRegister" Text="Register for Selected Class" runat="server" OnClick="btnRegister_Click"/>
     <br />
-    <asp:Label ID="lblRegisterResult" runat="server"></asp:Label>
+    
     <h2>Your current classes</h2>
-    <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+    <asp:SqlDataSource ID="ClassesByStudent" runat="server" 
         ConnectionString="<%$ ConnectionStrings:AdvWebDevProjectConnectionString %>" 
-        SelectCommand="pSelClassesByStudentID" SelectCommandType="StoredProcedure">
+         SelectCommand="SELECT [ClassId], [ClassName], [ClassDate], [ClassDescription] 
+        FROM [vClassesByStudents] WHERE ([StudentId] = @StudentId)" ProviderName="System.Data.SqlClient">
         <SelectParameters>
-            <asp:ControlParameter ControlID="hdnStudentId" Name="StudentId" PropertyName="Value" Type="Int32" />
+            <asp:ControlParameter ControlID="hdnStudentId" 
+                Name="StudentId" PropertyName="Value" Type="Int32" />
         </SelectParameters>
     </asp:SqlDataSource>
     <asp:GridView ID="gridMyClasses" runat="server" AutoGenerateColumns="False" 
-        DataSourceID="SqlDataSource2" DataKeyNames="ClassId">
+        DataSourceID="ClassesByStudent" DataKeyNames="ClassId">
         <Columns>
             <asp:CommandField ShowSelectButton="True" ButtonType="Button"></asp:CommandField>
-            <asp:BoundField DataField="Id" HeaderText="Id" SortExpression="ClassId" />
-            <asp:BoundField DataField="Name" HeaderText="Name" SortExpression="ClassName" />
-            <asp:BoundField DataField="Date" HeaderText="Date" SortExpression="ClassDate" />
-            <asp:BoundField DataField="Description" HeaderText="Description" SortExpression="ClassDescription" />
+            <asp:BoundField DataField="ClassId" HeaderText="Id" SortExpression="ClassId" />
+            <asp:BoundField DataField="ClassName" HeaderText="Name" SortExpression="ClassName" />
+            <asp:BoundField DataField="ClassDate" HeaderText="Date" SortExpression="ClassDate" DataFormatString="{0:dd-MM-yyyy}" />
+            <asp:BoundField DataField="ClassDescription" HeaderText="Description" SortExpression="ClassDescription" />
         </Columns>
         <selectedrowstyle backcolor="LightCyan"
          forecolor="DarkBlue"
          font-bold="true"/> 
     </asp:GridView>
     <br />
-<asp:Button ID="btnUnregister" Text="Drop Selected Class" runat="server" OnClick="btnUnregister_Click"/>
-    <br />
-    <asp:Label ID="lblDropResult" runat="server"></asp:Label>
+<asp:Button ID="btnUnregister" Text="Drop Selected Class" runat="server" OnClick="btnUnregister_Click"/><br /><br />
 </asp:Content>

@@ -39,9 +39,11 @@ a:active, a:hover {
     top: 0;
     width: 100%;
     padding: 0;
-    border-collapse:collapse;
 
 }
+    .header td {
+        border-width: 0;
+    }
 .headerContents {
     font-family: "Tangerine", serif;
     font-size: 64px;
@@ -51,7 +53,7 @@ a:active, a:hover {
 }
 
 .footer {
-    padding: 0;
+    padding-top: 10px;
     text-align: center;
     overflow: hidden;
     background-color:#142342;

@@ -19,7 +19,7 @@
         var ConnectionString = ConfigurationManager.ConnectionStrings["AdvWebDevProjectConnectionString"].ConnectionString;
         using (SqlConnection con = new SqlConnection(ConnectionString))
         {
-            using (SqlCommand cmd = new SqlCommand("pInsLoginRequest", con))
+            using (SqlCommand cmd = new SqlCommand("pInsLoginRequests", con))
             {
                 DateTime _needDate = DateTime.Parse(txtNeedBy.Text);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -28,7 +28,10 @@
                 cmd.Parameters.AddWithValue("@LoginName", txtLogin.Text);
                 cmd.Parameters.AddWithValue("@NewOrReactivate", rdoRequestType.Text);
                 cmd.Parameters.AddWithValue("@ReasonForAccess", txtReason.Text);
-                cmd.Parameters.AddWithValue("@DateNeededBy", txtNeedBy.Text);
+                cmd.Parameters.AddWithValue("@DateRequiredBy", DateTime.Parse(txtNeedBy.Text));
+                SqlParameter retval = new SqlParameter(@"LoginID",DbType.Int32);
+                retval.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(retval);
                 con.Open();
                 try {
                     result = cmd.ExecuteNonQuery();
